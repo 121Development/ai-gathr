@@ -18,6 +18,7 @@ interface OpenAIResponse {
 }
 
 async function aiNerCheck(text: string): Promise<NERResult> {
+  console.log("starting NER check");
   // Load environment variables
   const env = await load();
   const OPENAI_API_KEY = env["OPENAI_API_KEY"];
