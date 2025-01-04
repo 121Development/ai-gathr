@@ -94,6 +94,7 @@ router.post('/compare', async (ctx) => {
       return;
     }
 
+    console.log("calculating similarity");
     const similarDocs = await calculateSimilarity({ content: text });
     ctx.response.body = { matches: similarDocs };
     ctx.response.status = 200;
