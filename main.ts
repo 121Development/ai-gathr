@@ -64,7 +64,7 @@ async function processInput(str: string): Promise<ProcessedInput> {
     ];
 
     // Check if task has a due date
-    const taskKeywords = ["task", "todo", "do"];
+    const taskKeywords = ["task", "todo", "do", "reminder", "meeting"];
     const isDueDateTask = taskKeywords.includes(firstWord);
     const dueDate = isDueDateTask && aiEntities.dateTime && aiEntities.dateTime.length > 0 
         ? aiEntities.dateTime[0] 
