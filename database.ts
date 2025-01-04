@@ -1,9 +1,10 @@
 import { load } from "https://deno.land/std/dotenv/mod.ts";
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from 'jsr:@supabase/supabase-js';
+import { supabaseClient } from './lib/supabase'
 
-const supabaseUrl = 'https://ymaplkjuewqkiajrdqll.supabase.co'
 const env = await load();
 const supabaseKey = env["SUPABASE_API_KEY"];
+const supabaseUrl = env["SUPABASE_URL"];
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 export async function insertDocument(content: string, embedding: number[]) {
@@ -12,8 +13,7 @@ export async function insertDocument(content: string, embedding: number[]) {
             .from('documents')
             .insert({
                 content: content,
-                embedding: embedding,
-                created_at: new Date().toISOString()
+                embedding
             })
             .select();
 
