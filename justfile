@@ -2,29 +2,25 @@
 default:
     @just --list
 
-# Run examples with different inputs
+# Run examples with curl POST requests
 example1:
-    deno run --allow-read --allow-write --allow-net main.ts -i "Buy bananas, milk, bread and some toothpaste"
+    curl -X POST -H "Content-Type: application/json" -d '{"input":"Buy bananas, milk, bread and some toothpaste"}' http://localhost:3000/process
 
 example2:
-    deno run --allow-read --allow-write --allow-net main.ts -i "Remind Professor Smith to review the Stanford research paper next Tuesday at 09:00"
+    curl -X POST -H "Content-Type: application/json" -d '{"input":"Remind Professor Smith to review the Stanford research paper next Tuesday at 09:00"}' http://localhost:3000/process
 
 example3:
-    deno run --allow-read --allow-write --allow-net main.ts -i "Task schedule quarterly review with Director Emily Brown at Apple Campus in Cupertino on 2024-03-15 at 15:45"
+    curl -X POST -H "Content-Type: application/json" -d '{"input":"Task schedule quarterly review with Director Emily Brown at Apple Campus in Cupertino on 2024-03-15 at 15:45"}' http://localhost:3000/process
 
-# Run all examples sequentially
+# Run all examples sequentially (requires server to be running)
 run-examples:
     @just example1
     @just example2
     @just example3
 
-# Run the script in watch mode for development
-watch:
-    deno run --watch --allow-read --allow-write --allow-net main.ts
-
 # Check types without running
 check:
-    deno check main.ts
+    deno check main.ts server.ts
 
 # Format the code
 fmt:
@@ -32,12 +28,8 @@ fmt:
 
 # Cache dependencies and check types
 cache:
-    deno cache main.ts
+    deno cache main.ts server.ts
 
-# Show database contents
-show-db:
-    deno run --allow-read main.ts --show-db
-
-# Start the web server
+# Start the web server (main command to run the application)
 serve:
     deno run --allow-read --allow-write --allow-net server.ts
