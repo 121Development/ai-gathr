@@ -17,9 +17,12 @@ function checkKeywords(str: string): KeywordAnalysis {
   const taskKeywords = ['task', 'todo', 'complete', 'finish', 'implement'];
   const noteKeywords = ['note', 'remember', 'document', 'record'];
   
-  // Check for task keywords
-  if (taskKeywords.some(keyword => lowercaseStr.includes(keyword))) {
-    keywords.push(...taskKeywords.filter(keyword => lowercaseStr.includes(keyword)));
+  // Check for task keywords at the start of the string
+  const words = lowercaseStr.trim().split(/\s+/);
+  const firstWord = words[0];
+  
+  if (taskKeywords.some(keyword => firstWord === keyword)) {
+    keywords.push(firstWord);
     return { category: 'task', keywords };
   }
   
