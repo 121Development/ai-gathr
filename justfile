@@ -2,9 +2,21 @@
 default:
     @just --list
 
-# Run the main script with necessary permissions
-run:
-    deno run --allow-read --allow-write --allow-net main.ts
+# Run examples with different inputs
+example1:
+    deno run --allow-read --allow-write --allow-net main.ts -i "Meeting with CEO Sarah Johnson and CTO Mike Chen at Google HQ in Mountain View tomorrow at 14:30"
+
+example2:
+    deno run --allow-read --allow-write --allow-net main.ts -i "Remind Professor Smith to review the Stanford research paper next Tuesday at 09:00"
+
+example3:
+    deno run --allow-read --allow-write --allow-net main.ts -i "Task schedule quarterly review with Director Emily Brown at Apple Campus in Cupertino on 2024-03-15 at 15:45"
+
+# Run all examples sequentially
+run-examples:
+    @just example1
+    @just example2
+    @just example3
 
 # Run the script in watch mode for development
 watch:
@@ -20,4 +32,4 @@ fmt:
 
 # Cache dependencies and check types
 cache:
-    deno cache main.ts 
+    deno cache main.ts
