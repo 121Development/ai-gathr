@@ -74,6 +74,7 @@ async function aiNerCheck(text: string): Promise<NERResult> {
     console.error("Error performing AI NER:", error);
     return {
       names: [],
+      people: [],
       companies: [],
       locations: [],
       dateTime: [],
