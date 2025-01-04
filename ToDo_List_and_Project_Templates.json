@@ -1,0 +1,82 @@
+[
+    {
+        "Category":"To-Do List Categories",
+        "Examples":""
+    },
+    {
+        "Category":"Work\/Professional Tasks",
+        "Examples":"Meetings, deadlines, emails, team tasks"
+    },
+    {
+        "Category":"Personal Tasks",
+        "Examples":"Errands, household chores, family obligations"
+    },
+    {
+        "Category":"Health and Wellness",
+        "Examples":"Exercise, meal planning, health appointments"
+    },
+    {
+        "Category":"Education\/Learning",
+        "Examples":"Study schedules, skill-building, reading lists"
+    },
+    {
+        "Category":"Financial Tasks",
+        "Examples":"Bill payments, budget tracking, savings reviews"
+    },
+    {
+        "Category":"Social and Recreational",
+        "Examples":"Meetups, birthdays, vacations"
+    },
+    {
+        "Category":"Creative Projects",
+        "Examples":"Art, writing, DIY projects, content creation"
+    },
+    {
+        "Category":"Long-term Goals",
+        "Examples":"Career planning, fitness milestones, major events"
+    },
+    {
+        "Category":"Personal Project Template Categories",
+        "Examples":""
+    },
+    {
+        "Category":"Goal-Oriented Projects",
+        "Examples":"SMART goals, habit trackers, progress logs"
+    },
+    {
+        "Category":"Professional Development",
+        "Examples":"Career roadmaps, networking trackers, skill plans"
+    },
+    {
+        "Category":"Event Planning",
+        "Examples":"Wedding checklists, travel itineraries, party planning"
+    },
+    {
+        "Category":"Creative Projects",
+        "Examples":"Writing templates, design workflows, art schedules"
+    },
+    {
+        "Category":"Home and Organization",
+        "Examples":"Cleaning schedules, renovation trackers, gardening"
+    },
+    {
+        "Category":"Health and Fitness",
+        "Examples":"Workout plans, meal prep, habit trackers"
+    },
+    {
+        "Category":"Education and Learning",
+        "Examples":"Course syllabi, study schedules, exam prep"
+    },
+    {
+        "Category":"Tech\/Development Projects",
+        "Examples":"Software sprints, bug tracking, coding projects"
+    },
+    {
+        "Category":"Financial Management",
+        "Examples":"Budgeting, debt repayment, savings goals"
+    },
+    {
+        "Category":"Miscellaneous Life Goals",
+        "Examples":"Bucket lists, vision boards, gratitude journals"
+    }
+]
