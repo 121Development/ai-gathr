@@ -1,2 +1,1 @@
-export const taskKeywords = ['task', 'todo', 'do', 'remind', 'complete', 'finish', 'implement', 'buy'];
-export const noteKeywords = ['note', 'remember', 'document', 'record'];
+export const keywords = ['task', 'todo', 'do', 'remind', 'complete', 'finish', 'implement', 'buy', 'note', 'remember', 'document', 'record'];

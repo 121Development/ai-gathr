@@ -1,5 +1,5 @@
 import { parse } from "https://deno.land/std/flags/mod.ts";
-import { taskKeywords, noteKeywords } from "./constants.ts";
+import { keywords } from "./constants.ts";
 
 interface ProcessedInput {
   source: string;
@@ -17,19 +17,12 @@ function checkKeywords(str: string): KeywordAnalysis {
   const lowercaseStr = str.toLowerCase();
   const keywords: string[] = [];
   
-  // Check for task keywords at the start of the string
   const words = lowercaseStr.trim().split(/\s+/);
   const firstWord = words[0];
   
-  if (taskKeywords.some(keyword => firstWord === keyword)) {
+  if (keywords.includes(firstWord)) {
     keywords.push(firstWord);
     return { category: 'task', keywords };
-  }
-  
-  // Check for note keywords
-  if (noteKeywords.some(keyword => lowercaseStr.includes(keyword))) {
-    keywords.push(...noteKeywords.filter(keyword => lowercaseStr.includes(keyword)));
-    return { category: 'note', keywords };
   }
   
   return { category: 'general', keywords };
