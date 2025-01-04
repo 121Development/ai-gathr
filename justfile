@@ -4,7 +4,7 @@ default:
 
 # Run examples with different inputs
 example1:
-    deno run --allow-read --allow-write --allow-net main.ts -i "Meeting with CEO Sarah Johnson and CTO Mike Chen at Google HQ in Mountain View tomorrow at 14:30"
+    deno run --allow-read --allow-write --allow-net main.ts -i "Buy bananas, milk, bread and some toothpaste"
 
 example2:
     deno run --allow-read --allow-write --allow-net main.ts -i "Remind Professor Smith to review the Stanford research paper next Tuesday at 09:00"
