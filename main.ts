@@ -1,4 +1,5 @@
 import { parse } from "https://deno.land/std/flags/mod.ts";
+import { aiNerCheck, type NERResult } from "./nerCheck.ts";
 
 interface Entity {
   text: string;
@@ -57,13 +58,24 @@ function checkKeywords(str: string): KeywordAnalysis {
   };
 }
 
-function processInput(str: string): ProcessedInput {
+async function processInput(str: string): Promise<ProcessedInput> {
   const analysis = checkKeywords(str);
   const words = str.trim().toLowerCase().split(/\s+/);
   const firstWord = words[0];
   
-  const entities = performNER(str);
+  const [regexEntities, aiEntities] = await Promise.all([
+    Promise.resolve(performNER(str)),
+    aiNerCheck(str)
+  ]);
   
+  // Combine regex entities with AI entities
+  const entities = [
+    ...regexEntities,
+    ...aiEntities.names.map(name => ({ text: name, type: "PERSON", start: -1, end: -1 })),
+    ...aiEntities.companies.map(company => ({ text: company, type: "ORGANIZATION", start: -1, end: -1 })),
+    ...aiEntities.locations.map(location => ({ text: location, type: "LOCATION", start: -1, end: -1 }))
+  ];
+
   return {
     source: "user-input",
     category: analysis.category || "unknown",
@@ -85,5 +97,5 @@ if (!args.input) {
   Deno.exit(1);
 }
 
-const result = processInput(args.input);
+const result = await processInput(args.input);
 console.log(JSON.stringify(result, null, 2));
