@@ -10,6 +10,7 @@ interface NERResult {
   persons: Person[];
   locations: string[];
   dateTime: string[]; // ISO 8601 format: YYYY-MM-DD'T'HH:mm:ss
+  containsNER: boolean;
 }
 
 interface OpenAIResponse {
@@ -37,6 +38,8 @@ async function aiNerCheck(text: string): Promise<NERResult> {
     For dates and times, convert to ISO 8601 combined date-time format (YYYY-MM-DD'T'HH:mm:ss).
     For relative dates/times like "tomorrow" or "in an hour", calculate the specific date-time based on current time.
     
+    Set containsNER to true if ANY named entities (persons, locations, or dates) are found, false otherwise.
+    
     Return a JSON object with this structure:
     {
       "persons": [
@@ -47,7 +50,8 @@ async function aiNerCheck(text: string): Promise<NERResult> {
         }
       ],
       "locations": ["New York", "Silicon Valley"],
-      "dateTime": ["2024-01-04T15:30:00"]
+      "dateTime": ["2024-01-04T15:30:00"],
+      "containsNER": true
     }
 
     Text to analyze: "${text}"
@@ -84,6 +88,11 @@ async function aiNerCheck(text: string): Promise<NERResult> {
       persons: nerResult.persons || [],
       locations: nerResult.locations || [],
       dateTime: nerResult.dateTime || [],
+      containsNER: Boolean(
+        (nerResult.persons && nerResult.persons.length > 0) ||
+        (nerResult.locations && nerResult.locations.length > 0) ||
+        (nerResult.dateTime && nerResult.dateTime.length > 0)
+      )
     };
   } catch (error) {
     console.error("Error performing AI NER:", error);
@@ -91,6 +100,7 @@ async function aiNerCheck(text: string): Promise<NERResult> {
       persons: [],
       locations: [],
       dateTime: [],
+      containsNER: false
     };
   }
 }
