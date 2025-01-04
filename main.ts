@@ -1,5 +1,6 @@
 import { aiNERCheck, type NERResult } from "./nerCheck.ts";
 import { exists } from "https://deno.land/std/fs/mod.ts";
+import { scrapeUrl } from "./scrapeUrl.ts";
 
 interface Source {
     personal: string;
