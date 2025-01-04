@@ -45,7 +45,7 @@ function processInput(str: string): ProcessedInput {
   
   return {
     source: "user-input",
-    category: analysis.category,
+    category: analysis.category || "unknown",
     content: str.trim(),
     keyword: analysis.keywords.length > 0 ? firstWord : null
   };
