@@ -1,6 +1,7 @@
 import { Application, Router } from "https://deno.land/x/oak@v12.6.1/mod.ts";
 import { load } from "https://deno.land/std/dotenv/mod.ts";
 import { processInput } from "./main.ts";
+import { insertDocument } from "./database.ts";
 
 const app = new Application();
 const router = new Router();
@@ -38,6 +39,9 @@ router.post('/embed', async (ctx) => {
 
     // Call our embedding function
     const embedding = await getEmbedding(text);
+
+    // Store the document and embedding in Supabase
+    await insertDocument(text, embedding);
 
     // Return the embedding as JSON
     ctx.response.body = { embedding };
