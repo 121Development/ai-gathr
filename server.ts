@@ -27,6 +27,7 @@ router.post("/process", async (ctx) => {
 });
 
 router.post('/embed', async (ctx) => {
+  console.log("/embed tapped");
   try {
     const body = ctx.request.body({ type: 'json' });
     const { text } = await body.value;
@@ -38,9 +39,11 @@ router.post('/embed', async (ctx) => {
     }
 
     // Call our embedding function
+    console.log("calling embedding function");
     const embedding = await getEmbedding(text);
 
     // Store the document and embedding in Supabase
+    console.log("storing embedding and document in Supabase");
     await insertDocument(text, embedding);
 
     // Return the embedding as JSON
@@ -82,6 +85,10 @@ async function getEmbedding(text: string): Promise<number[]> {
 
 app.use(router.routes());
 app.use(router.allowedMethods());
+app.use((ctx, next) => {
+  ctx.response.headers.set('Access-Control-Allow-Origin', '*')
+  return next()
+})
 
 console.log("Server running on http://localhost:3000");
 await app.listen({ port: 3000 });

@@ -40,13 +40,13 @@ show-db:
 
 # Embedding examples with curl POST requests
 embed1:
-    curl -X POST -H "Content-Type: application/json" -d '{"text":"Buy bananas, milk, bread and some toothpaste"}' http://localhost:3000/embed | jq
+    curl -X POST -H "Content-Type: application/json" -d '{"text":"Buy bananas, milk, bread and some toothpaste"}' http://localhost:3000/embed
 
 embed2:
-    curl -X POST -H "Content-Type: application/json" -d '{"text":"Remind Professor Smith to review the Stanford research paper next Tuesday at 09:00"}' http://localhost:3000/embed | jq
+    curl -X POST -H "Content-Type: application/json" -d '{"text":"Remind Professor Smith to review the Stanford research paper next Tuesday at 09:00"}' http://localhost:3000/embed
 
 embed3:
-    curl -X POST -H "Content-Type: application/json" -d '{"text":"Task schedule quarterly review with Director Emily Brown at Apple Campus in Cupertino on 2024-03-15 at 15:45"}' http://localhost:3000/embed | jq
+    curl -X POST -H "Content-Type: application/json" -d '{"text":"Task schedule quarterly review with Director Emily Brown at Apple Campus in Cupertino on 2024-03-15 at 15:45"}' http://localhost:3000/embed
 
 # Run all embedding examples sequentially (requires server to be running)
 run-embeds:
