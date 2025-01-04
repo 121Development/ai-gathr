@@ -1,13 +1,18 @@
 import { aiNERCheck, type NERResult } from "./nerCheck.ts";
 import { exists } from "https://deno.land/std/fs/mod.ts";
 
+interface Source {
+    personal: string;
+    work: string;
+}
+
 interface Entity {
     text: string;
     type: string;
 }
 
 interface ProcessedInput {
-    source: string;
+    source: Source;
     category: string;
     content: string;
     keyword: string | null;
@@ -68,7 +73,10 @@ export async function processInput(str: string): Promise<ProcessedInput> {
         : null;
 
     return {
-        source: "user-input",
+        source: {
+            personal: "",
+            work: "user-input"
+        },
         category: analysis.category || "unknown",
         content: str.trim(),
         keyword: analysis.keywords.length > 0 ? firstWord : null,
