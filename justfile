@@ -33,3 +33,7 @@ cache:
 # Start the web server (main command to run the application)
 serve:
     deno run --allow-read --allow-write --allow-net server.ts
+
+# Show database contents
+show-db:
+    cat json_db.json | jq
