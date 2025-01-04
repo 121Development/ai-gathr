@@ -42,8 +42,7 @@ async function processInput(str: string): Promise<ProcessedInput> {
     ...aiEntities.people.map(person => ({ text: person, type: "PERSON_ROLE" })),
     ...aiEntities.companies.map(company => ({ text: company, type: "ORGANIZATION" })),
     ...aiEntities.locations.map(location => ({ text: location, type: "LOCATION" })),
-    ...aiEntities.dates.map(date => ({ text: date, type: "DATE" })),
-    ...aiEntities.times.map(time => ({ text: time, type: "TIME" }))
+    ...aiEntities.dateTime.map(dt => ({ text: dt, type: "DATETIME" }))
   ];
 
   return {

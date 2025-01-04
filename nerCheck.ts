@@ -5,8 +5,7 @@ interface NERResult {
   people: string[];
   companies: string[];
   locations: string[];
-  dates: string[];
-  times: string[];
+  dateTime: string[]; // ISO 8601 format: YYYY-MM-DD'T'HH:mm:ss
 }
 
 interface OpenAIResponse {
@@ -69,8 +68,7 @@ async function aiNerCheck(text: string): Promise<NERResult> {
       people: nerResult.people || [],
       companies: nerResult.companies || [],
       locations: nerResult.locations || [],
-      dates: nerResult.dates || [],
-      times: nerResult.times || [],
+      dateTime: nerResult.dateTime || [],
     };
   } catch (error) {
     console.error("Error performing AI NER:", error);
@@ -78,8 +76,7 @@ async function aiNerCheck(text: string): Promise<NERResult> {
       names: [],
       companies: [],
       locations: [],
-      dates: [],
-      times: [],
+      dateTime: [],
     };
   }
 }
