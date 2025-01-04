@@ -31,8 +31,8 @@ async function aiNerCheck(text: string): Promise<NERResult> {
     Analyze the following text and extract named entities into these categories:
     names (for proper nouns), people (for roles/titles/positions), companies, locations, dates, and times.
     
-    For dates, convert to ISO 8601 format (YYYY-MM-DD). For relative dates like "tomorrow" or "next week", calculate based on current date.
-    For times, convert to 24-hour format (HH:mm). For relative times like "in an hour", calculate the specific time.
+    For dates and times, convert to ISO 8601 combined date-time format (YYYY-MM-DD'T'HH:mm:ss).
+    For relative dates/times like "tomorrow" or "in an hour", calculate the specific date-time based on current time.
     
     Return only a JSON object with these categories as arrays. Text to analyze: "${text}"
   `;
