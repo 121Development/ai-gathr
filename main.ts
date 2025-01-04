@@ -13,6 +13,7 @@ interface ProcessedInput {
     category: string;
     content: string;
     keyword: string | null;
+    hasKeyword: boolean;
     entities: Entity[];
 }
 
@@ -64,6 +65,7 @@ async function processInput(str: string): Promise<ProcessedInput> {
         category: analysis.category || "unknown",
         content: str.trim(),
         keyword: analysis.keywords.length > 0 ? firstWord : null,
+        hasKeyword: analysis.keywords.length > 0,
         entities,
     };
 }
