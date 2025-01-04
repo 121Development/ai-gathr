@@ -1,3 +1,14 @@
 {
-  "tasks": []
+  "tasks": [
+    {
+      "source": "user-input",
+      "category": "buy",
+      "content": "Buy bananas, milk, bread and some toothpaste",
+      "keyword": "buy",
+      "hasKeyword": true,
+      "entities": [],
+      "timestamp": "2025-01-04T12:24:33.023Z",
+      "id": "851ca1df-6bde-4ea8-a57d-1024ee197307"
+    }
+  ]
 }
