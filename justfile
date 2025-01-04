@@ -53,6 +53,11 @@ run-embeds:
     @just embed1
     @just embed2
     @just embed3
+    @just embed4
+
+# Embed task about buying major items
+embed4:
+    curl -X POST -H "Content-Type: application/json" -d '{"text":"buy a car, a house and a dog"}' http://localhost:3000/embed
 
 # Compare text similarity against stored documents
 compare:
