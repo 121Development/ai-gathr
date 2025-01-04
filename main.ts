@@ -1,4 +1,4 @@
-import { aiNerCheck, type NERResult } from "./nerCheck.ts";
+import { aiNERCheck, type NERResult } from "./nerCheck.ts";
 import { exists } from "https://deno.land/std/fs/mod.ts";
 
 interface Entity {
@@ -36,7 +36,7 @@ export async function processInput(str: string): Promise<ProcessedInput> {
     const words = str.trim().toLowerCase().split(/\s+/);
     const firstWord = words[0];
 
-    const aiEntities = await aiNerCheck(str);
+    const aiEntities = await aiNERCheck(str);
     //console.log(aiEntities);
     // Convert AI entities to Entity format
     const entities = [

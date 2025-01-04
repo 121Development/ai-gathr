@@ -21,7 +21,7 @@ interface OpenAIResponse {
   }[];
 }
 
-async function aiNerCheck(text: string): Promise<NERResult> {
+async function aiNERCheck(text: string): Promise<NERResult> {
   console.log("starting NER check");
   // Load environment variables
   const env = await load();
@@ -105,4 +105,4 @@ async function aiNerCheck(text: string): Promise<NERResult> {
   }
 }
 
-export { aiNerCheck, type NERResult };
+export { aiNERCheck, type NERResult };
