@@ -37,3 +37,7 @@ cache:
 # Show database contents
 show-db:
     deno run --allow-read main.ts --show-db
+
+# Start the web server
+serve:
+    deno run --allow-read --allow-write --allow-net server.ts

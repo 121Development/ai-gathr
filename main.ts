@@ -34,7 +34,7 @@ function checkKeywords(str: string): KeywordAnalysis {
     };
 }
 
-async function processInput(str: string): Promise<ProcessedInput> {
+export async function processInput(str: string): Promise<ProcessedInput> {
     const analysis = checkKeywords(str);
     const words = str.trim().toLowerCase().split(/\s+/);
     const firstWord = words[0];
