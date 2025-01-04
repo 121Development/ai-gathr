@@ -7,6 +7,24 @@ const supabaseKey = env["SUPABASE_API_KEY"];
 const supabaseUrl = env["SUPABASE_URL"];
 const supabase = createClient(supabaseUrl, supabaseKey)
 
+export async function calculateSimilarity(query: { content: string }) {
+    try {
+        const { data: documents, error } = await supabase
+            .rpc('match_documents', {
+                query_embedding: JSON.stringify(query.content),
+                match_threshold: 0.78, // Threshold for similarity matching
+                match_count: 5 // Limit to top 5 matches
+            });
+
+        if (error) throw error;
+        return documents;
+        
+    } catch (error) {
+        console.error('Error calculating similarity:', error);
+        throw error;
+    }
+}
+
 export async function insertDocument(content: string, embedding: number[]) {
     try {
         const { data, error } = await supabase
