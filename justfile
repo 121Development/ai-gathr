@@ -56,4 +56,4 @@ run-embeds:
 
 # Compare text similarity against stored documents
 compare:
-    curl -X POST -H "Content-Type: application/json" -d '{"text":"meeting with Emily Brown at Apple"}' http://localhost:3000/compare | jq
+    curl -X POST -H "Content-Type: application/json" -d '{"text":"meeting with Emily Brown at Apple Inc"}' http://localhost:3000/compare
