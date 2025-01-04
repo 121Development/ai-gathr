@@ -4,6 +4,7 @@ interface ProcessedInput {
   source: string;
   category: string;
   content: string;
+  keyword: string | null;
 }
 
 interface KeywordAnalysis {
@@ -39,11 +40,14 @@ function checkKeywords(str: string): KeywordAnalysis {
 
 function processInput(str: string): ProcessedInput {
   const analysis = checkKeywords(str);
+  const words = str.trim().toLowerCase().split(/\s+/);
+  const firstWord = words[0];
   
   return {
     source: "user-input",
     category: analysis.category,
-    content: str.trim()
+    content: str.trim(),
+    keyword: analysis.keywords.length > 0 ? firstWord : null
   };
 }
 
