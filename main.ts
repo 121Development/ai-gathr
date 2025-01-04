@@ -74,12 +74,26 @@ async function processInput(str: string): Promise<ProcessedInput> {
 // Parse command line arguments
 const args = parse(Deno.args, {
     string: ["input"],
+    boolean: ["show-db"],
     alias: { input: "i" },
 });
+
+if (args["show-db"]) {
+    const dbPath = "./json_db.json";
+    if (await exists(dbPath)) {
+        const content = await Deno.readTextFile(dbPath);
+        console.log(content);
+        Deno.exit(0);
+    } else {
+        console.log("Database file not found");
+        Deno.exit(1);
+    }
+}
 
 if (!args.input) {
     console.log("Please provide input using --input or -i flag");
     console.log('Example: deno run main.ts --input "Buy groceries"');
+    console.log('Or use --show-db to display database contents');
     Deno.exit(1);
 }
 

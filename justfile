@@ -33,3 +33,7 @@ fmt:
 # Cache dependencies and check types
 cache:
     deno cache main.ts
+
+# Show database contents
+show-db:
+    deno run --allow-read main.ts --show-db
