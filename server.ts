@@ -83,6 +83,26 @@ async function getEmbedding(text: string): Promise<number[]> {
   return data.data[0].embedding;
 }
 
+router.post('/compare', async (ctx) => {
+  try {
+    const body = ctx.request.body({ type: 'json' });
+    const { text } = await body.value;
+
+    if (!text) {
+      ctx.response.status = 400;
+      ctx.response.body = { error: 'Missing "text" in request body.' };
+      return;
+    }
+
+    const similarDocs = await calculateSimilarity({ content: text });
+    ctx.response.body = { matches: similarDocs };
+    ctx.response.status = 200;
+  } catch (error) {
+    ctx.response.body = { error: error.message };
+    ctx.response.status = 500;
+  }
+});
+
 app.use(router.routes());
 app.use(router.allowedMethods());
 app.use((ctx, next) => {
