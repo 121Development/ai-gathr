@@ -1,7 +1,7 @@
 import { Application, Router } from "https://deno.land/x/oak@v12.6.1/mod.ts";
 import { load } from "https://deno.land/std/dotenv/mod.ts";
 import { processInput } from "./main.ts";
-import { insertDocument } from "./database.ts";
+import { insertDocument, calculateSimilarity } from "./database.ts";
 
 const app = new Application();
 const router = new Router();
