@@ -40,9 +40,11 @@ async function processInput(str: string): Promise<ProcessedInput> {
   
   // Convert AI entities to Entity format
   const entities = [
-    ...(Array.isArray(aiEntities.names) ? aiEntities.names.map(name => ({ text: name, type: "PERSON_NAME" })) : []),
-    ...(Array.isArray(aiEntities.people) ? aiEntities.people.map(person => ({ text: person, type: "PERSON_ROLE" })) : []),
-    ...(Array.isArray(aiEntities.companies) ? aiEntities.companies.map(company => ({ text: company, type: "ORGANIZATION" })) : []),
+    ...(Array.isArray(aiEntities.persons) ? aiEntities.persons.map(person => ([
+      { text: person.name, type: "PERSON_NAME" },
+      { text: person.role, type: "PERSON_ROLE" },
+      { text: person.company, type: "ORGANIZATION" }
+    ])).flat() : []),
     ...(Array.isArray(aiEntities.locations) ? aiEntities.locations.map(location => ({ text: location, type: "LOCATION" })) : []),
     ...(Array.isArray(aiEntities.dateTime) ? aiEntities.dateTime.map(dt => ({ text: dt, type: "DATETIME" })) : [])
   ];

@@ -1,9 +1,13 @@
 import { load } from "https://deno.land/std/dotenv/mod.ts";
 
+interface Person {
+  name: string;
+  role: string;
+  company: string;
+}
+
 interface NERResult {
-  names: string[];
-  people: string[];
-  companies: string[];
+  persons: Person[];
   locations: string[];
   dateTime: string[]; // ISO 8601 format: YYYY-MM-DD'T'HH:mm:ss
 }
@@ -27,13 +31,26 @@ async function aiNerCheck(text: string): Promise<NERResult> {
   }
 
   const prompt = `
-    Analyze the following text and extract named entities into these categories:
-    names (for proper nouns), people (for roles/titles/positions), companies, locations, dateTime.
+    Analyze the following text and extract named entities into a structured format.
     
+    For persons, include their name, role/title, and associated company.
     For dates and times, convert to ISO 8601 combined date-time format (YYYY-MM-DD'T'HH:mm:ss).
     For relative dates/times like "tomorrow" or "in an hour", calculate the specific date-time based on current time.
     
-    Return only a JSON object with these categories as arrays. Text to analyze: "${text}"
+    Return a JSON object with this structure:
+    {
+      "persons": [
+        {
+          "name": "John Smith",
+          "role": "CEO",
+          "company": "Acme Corp"
+        }
+      ],
+      "locations": ["New York", "Silicon Valley"],
+      "dateTime": ["2024-01-04T15:30:00"]
+    }
+
+    Text to analyze: "${text}"
   `;
 
   try {
@@ -64,18 +81,14 @@ async function aiNerCheck(text: string): Promise<NERResult> {
     const nerResult: NERResult = JSON.parse(content);
     
     return {
-      names: nerResult.names || [],
-      people: nerResult.people || [],
-      companies: nerResult.companies || [],
+      persons: nerResult.persons || [],
       locations: nerResult.locations || [],
       dateTime: nerResult.dateTime || [],
     };
   } catch (error) {
     console.error("Error performing AI NER:", error);
     return {
-      names: [],
-      people: [],
-      companies: [],
+      persons: [],
       locations: [],
       dateTime: [],
     };
