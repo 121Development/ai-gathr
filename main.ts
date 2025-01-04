@@ -4,6 +4,7 @@ import { exists } from "https://deno.land/std/fs/mod.ts";
 interface Source {
     personal: string;
     work: string;
+    service: string;
 }
 
 interface Entity {
@@ -75,7 +76,8 @@ export async function processInput(str: string): Promise<ProcessedInput> {
     return {
         source: {
             personal: "",
-            work: "user-input"
+            work: "user-input",
+            service: ""
         },
         category: analysis.category || "unknown",
         content: str.trim(),
