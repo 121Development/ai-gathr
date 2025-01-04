@@ -11,7 +11,7 @@ export async function calculateSimilarity(embedding: number[]) {
     try {
         const { data: documents, error } = await supabase
             .rpc('match_documents', {
-                query_embedding: embedding,
+                query_embedding: `[${embedding.join(',')}]`,
                 match_threshold: 0.78, // Threshold for similarity matching
                 match_count: 5 // Limit to top 5 matches
             });
