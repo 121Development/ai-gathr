@@ -8,6 +8,7 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 
 export async function calculateSimilarity(embedding: number[]) {
     console.log("inside calculateSimilarity function");
+    console.log("embedding: " + embedding);
     try {
         const { data: documents, error } = await supabase
             .rpc('match_documents', {

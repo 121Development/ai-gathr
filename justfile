@@ -48,25 +48,47 @@ embed2:
 embed3:
     curl -X POST -H "Content-Type: application/json" -d '{"text":"Task schedule quarterly review with Director Emily Brown at Apple Campus in Cupertino on 2024-03-15 at 15:45"}' http://localhost:3000/embed
 
+embed4:
+    curl -X POST -H "Content-Type: application/json" -d '{"text":"Planks, nails, hammer, paint for my house"}' http://localhost:3000/embed
+
+# Embed task about buying major items
+embed5:
+    curl -X POST -H "Content-Type: application/json" -d '{"text":"I love my car, my house and my dog"}' http://localhost:3000/embed
+
+
 # Run all embedding examples sequentially (requires server to be running)
 run-embeds:
     @just embed1
     @just embed2
     @just embed3
     @just embed4
+    @just embed5
 
-# Embed task about buying major items
-embed4:
-    curl -X POST -H "Content-Type: application/json" -d '{"text":"buy a car, a house and a dog"}' http://localhost:3000/embed
 
 # Compare text similarity against stored documents
-compare:
+compare1:
     curl -X POST -H "Content-Type: application/json" -d '{"text":"meeting with Emily Brown at Apple Inc"}' http://localhost:3000/compare
 
 # Compare similar to shopping list
 compare2:
-    curl -X POST -H "Content-Type: application/json" -d '{"text":"need to buy groceries: milk, bread and toothpaste"}' http://localhost:3000/compare
+    curl -X POST -H "Content-Type: application/json" -d '{"text":"need to buy groceries: apples, toilet paper and tooth picks"}' http://localhost:3000/compare
 
 # Compare completely different content
 compare3:
     curl -X POST -H "Content-Type: application/json" -d '{"text":"The weather in Paris is beautiful during springtime"}' http://localhost:3000/compare
+
+# Compare byuing material
+compare4:
+    curl -X POST -H "Content-Type: application/json" -d '{"text":"need to aquire some material for building a new shed in my garden, a plank, some nails and a hammer"}' http://localhost:3000/compare
+
+# Compare family and house
+compare5:
+    curl -X POST -H "Content-Type: application/json" -d '{"text":"my assets are: a car, a house and my avanza account"}' http://localhost:3000/compare
+
+# Compare buy statements
+compare6:
+    curl -X POST -H "Content-Type: application/json" -d '{"text":"car, dog, milk, bread"}' http://localhost:3000/compare
+
+# Compare entities
+compare7:
+    curl -X POST -H "Content-Type: application/json" -d '{"text":"I need to see both Smith and Emily Brown next time Im in town"}' http://localhost:3000/compare    
