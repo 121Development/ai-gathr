@@ -94,8 +94,11 @@ router.post('/compare', async (ctx) => {
       return;
     }
 
+    console.log("getting embedding for comparison");
+    const embedding = await getEmbedding(text);
+    
     console.log("calculating similarity");
-    const similarDocs = await calculateSimilarity({ content: text });
+    const similarDocs = await calculateSimilarity(embedding);
     ctx.response.body = { matches: similarDocs };
     ctx.response.status = 200;
   } catch (error) {

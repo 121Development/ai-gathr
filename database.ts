@@ -6,13 +6,12 @@ const supabaseKey = env["SUPABASE_API_KEY"];
 const supabaseUrl = env["SUPABASE_URL"];
 const supabase = createClient(supabaseUrl, supabaseKey)
 
-export async function calculateSimilarity(query: { content: string }) {
+export async function calculateSimilarity(embedding: number[]) {
     console.log("inside calculateSimilarity function");
     try {
         const { data: documents, error } = await supabase
             .rpc('match_documents', {
-                //query_embedding: JSON.stringify(query.content),
-                query_embedding: JSON.stringify(query.content),
+                query_embedding: embedding,
                 match_threshold: 0.78, // Threshold for similarity matching
                 match_count: 5 // Limit to top 5 matches
             });
