@@ -1,3 +1,5 @@
+import { parse } from "https://deno.land/std/flags/mod.ts";
+
 interface ProcessedInput {
   source: string;
   category: string;
@@ -45,14 +47,17 @@ function processInput(str: string): ProcessedInput {
   };
 }
 
-// Example usage
-const result = processInput("This is a task: complete the project");
+// Parse command line arguments
+const args = parse(Deno.args, {
+  string: ["input"],
+  alias: { input: "i" },
+});
+
+if (!args.input) {
+  console.log("Please provide input using --input or -i flag");
+  console.log("Example: deno run main.ts --input \"Buy groceries\"");
+  Deno.exit(1);
+}
+
+const result = processInput(args.input);
 console.log(JSON.stringify(result, null, 2));
-
-// Shopping list example
-const shoppingList = processInput("Buy bananas, apples, eggs and milk");
-console.log(JSON.stringify(shoppingList, null, 2));
-
-// Example of direct keyword analysis
-const keywordAnalysis = checkKeywords("Remember to document the API changes");
-console.log(JSON.stringify(keywordAnalysis, null, 2));

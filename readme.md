@@ -7,7 +7,13 @@ This project demonstrates basic Deno functionality with TypeScript.
 To run the project with necessary permissions:
 
 ```bash
-deno run --allow-net --allow-read --allow-write main.ts
+deno run main.ts --input "Your input text here"
+```
+
+Or use the short flag:
+
+```bash
+deno run main.ts -i "Your input text here"
 ```
 
 ### Permission Flags Explained:
