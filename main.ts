@@ -46,6 +46,10 @@ function processInput(str: string): ProcessedInput {
 const result = processInput("This is a task: complete the project");
 console.log(JSON.stringify(result, null, 2));
 
+// Shopping list example
+const shoppingList = processInput("Buy bananas, apples, eggs and milk");
+console.log(JSON.stringify(shoppingList, null, 2));
+
 // Example of direct keyword analysis
 const keywordAnalysis = checkKeywords("Remember to document the API changes");
 console.log(JSON.stringify(keywordAnalysis, null, 2));
