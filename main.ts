@@ -4,8 +4,6 @@ import { aiNerCheck, type NERResult } from "./nerCheck.ts";
 interface Entity {
   text: string;
   type: string;
-  start: number;
-  end: number;
 }
 
 interface ProcessedInput {
@@ -40,12 +38,12 @@ async function processInput(str: string): Promise<ProcessedInput> {
   
   // Convert AI entities to Entity format
   const entities = [
-    ...aiEntities.names.map(name => ({ text: name, type: "PERSON_NAME", start: -1, end: -1 })),
-    ...aiEntities.people.map(person => ({ text: person, type: "PERSON_ROLE", start: -1, end: -1 })),
-    ...aiEntities.companies.map(company => ({ text: company, type: "ORGANIZATION", start: -1, end: -1 })),
-    ...aiEntities.locations.map(location => ({ text: location, type: "LOCATION", start: -1, end: -1 })),
-    ...aiEntities.dates.map(date => ({ text: date, type: "DATE", start: -1, end: -1 })),
-    ...aiEntities.times.map(time => ({ text: time, type: "TIME", start: -1, end: -1 }))
+    ...aiEntities.names.map(name => ({ text: name, type: "PERSON_NAME" })),
+    ...aiEntities.people.map(person => ({ text: person, type: "PERSON_ROLE" })),
+    ...aiEntities.companies.map(company => ({ text: company, type: "ORGANIZATION" })),
+    ...aiEntities.locations.map(location => ({ text: location, type: "LOCATION" })),
+    ...aiEntities.dates.map(date => ({ text: date, type: "DATE" })),
+    ...aiEntities.times.map(time => ({ text: time, type: "TIME" }))
   ];
 
   return {
