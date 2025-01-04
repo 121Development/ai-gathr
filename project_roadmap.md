@@ -29,8 +29,18 @@ and the into sub categories; todo, toRead, toWatch, forLater,
 - Keywords are todo, köp, 
 - If match on keyword, then that will be the category
 - then we refactor to update the categories
+- do we need to normalise words in the
+- change dueDate to []? As to have start and end and recurring dates?
 
+## Flow
+- Check keywords -> Category 
+    - if Category -> don't AI-check category
+- Check NER
+- IF no Category: AI-category checker
 
+## Category structure
+The best approach would be to have a category structure of similar structure as a base and then decide if the task at hand is either personal or work related
+s
 
 # Features 
 
@@ -70,4 +80,8 @@ https://app.codeguide.dev/pricing
 Db playground
 https://myscale.com/blog/myscale-sql-vector-playground/
 
+# Embeddings
+https://cybernetist.com/2024/01/07/fun-with-embeddings/
+https://supabase.com/blog/openai-embeddings-postgres-vector
+https://github.com/openai/openai-cookbook/blob/main/examples/Semantic_text_search_using_embeddings.ipynb
 
