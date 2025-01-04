@@ -17,7 +17,7 @@ function checkKeywords(str: string): KeywordAnalysis {
   const keywords: string[] = [];
   
   // Define keyword patterns
-  const taskKeywords = ['task', 'todo', 'complete', 'finish', 'implement'];
+  const taskKeywords = ['task', 'todo', 'complete', 'finish', 'implement', 'buy'];
   const noteKeywords = ['note', 'remember', 'document', 'record'];
   
   // Check for task keywords at the start of the string
