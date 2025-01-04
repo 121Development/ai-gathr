@@ -1,5 +1,6 @@
 import { parse } from "https://deno.land/std/flags/mod.ts";
 import { aiNerCheck, type NERResult } from "./nerCheck.ts";
+import { exists } from "https://deno.land/std/fs/mod.ts";
 
 console.log("Welcome to Gathr");
 
@@ -82,5 +83,32 @@ if (!args.input) {
     Deno.exit(1);
 }
 
+async function appendToDatabase(task: ProcessedInput): Promise<void> {
+    const dbPath = "./json_db.json";
+    
+    // Create database file if it doesn't exist
+    if (!await exists(dbPath)) {
+        await Deno.writeTextFile(dbPath, JSON.stringify({ tasks: [] }, null, 2));
+    }
+
+    // Read existing data
+    const rawData = await Deno.readTextFile(dbPath);
+    const data = JSON.parse(rawData);
+
+    // Append new task
+    data.tasks.push({
+        ...task,
+        timestamp: new Date().toISOString(),
+        id: crypto.randomUUID()
+    });
+
+    // Write back to file
+    await Deno.writeTextFile(dbPath, JSON.stringify(data, null, 2));
+}
+
 const result = await processInput(args.input);
 console.log(JSON.stringify(result, null, 2));
+
+// Append the processed task to the database
+await appendToDatabase(result);
+console.log("Task saved to database");
