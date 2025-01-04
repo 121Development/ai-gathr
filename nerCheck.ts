@@ -2,6 +2,7 @@ import { load } from "https://deno.land/std/dotenv/mod.ts";
 
 interface NERResult {
   names: string[];
+  people: string[];
   companies: string[];
   locations: string[];
   dates: string[];
@@ -27,7 +28,7 @@ async function aiNerCheck(text: string): Promise<NERResult> {
 
   const prompt = `
     Analyze the following text and extract named entities into these categories:
-    names, companies, locations, dates, and times. Return only a JSON object with
+    names (for proper nouns), people (for roles/titles/positions), companies, locations, dates, and times. Return only a JSON object with
     these categories as arrays. Text to analyze: "${text}"
   `;
 
@@ -60,6 +61,7 @@ async function aiNerCheck(text: string): Promise<NERResult> {
     
     return {
       names: nerResult.names || [],
+      people: nerResult.people || [],
       companies: nerResult.companies || [],
       locations: nerResult.locations || [],
       dates: nerResult.dates || [],

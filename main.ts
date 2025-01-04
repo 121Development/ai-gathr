@@ -71,7 +71,8 @@ async function processInput(str: string): Promise<ProcessedInput> {
   // Combine regex entities with AI entities
   const entities = [
     ...regexEntities,
-    ...aiEntities.names.map(name => ({ text: name, type: "PERSON", start: -1, end: -1 })),
+    ...aiEntities.names.map(name => ({ text: name, type: "PERSON_NAME", start: -1, end: -1 })),
+    ...aiEntities.people.map(person => ({ text: person, type: "PERSON_ROLE", start: -1, end: -1 })),
     ...aiEntities.companies.map(company => ({ text: company, type: "ORGANIZATION", start: -1, end: -1 })),
     ...aiEntities.locations.map(location => ({ text: location, type: "LOCATION", start: -1, end: -1 }))
   ];
