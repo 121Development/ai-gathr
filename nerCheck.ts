@@ -29,8 +29,12 @@ async function aiNerCheck(text: string): Promise<NERResult> {
 
   const prompt = `
     Analyze the following text and extract named entities into these categories:
-    names (for proper nouns), people (for roles/titles/positions), companies, locations, dates, and times. Return only a JSON object with
-    these categories as arrays. Text to analyze: "${text}"
+    names (for proper nouns), people (for roles/titles/positions), companies, locations, dates, and times.
+    
+    For dates, convert to ISO 8601 format (YYYY-MM-DD). For relative dates like "tomorrow" or "next week", calculate based on current date.
+    For times, convert to 24-hour format (HH:mm). For relative times like "in an hour", calculate the specific time.
+    
+    Return only a JSON object with these categories as arrays. Text to analyze: "${text}"
   `;
 
   try {
