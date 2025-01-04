@@ -37,7 +37,7 @@ async function processInput(str: string): Promise<ProcessedInput> {
   const firstWord = words[0];
   
   const aiEntities = await aiNerCheck(str);
-  
+  console.log(aiEntities);
   // Convert AI entities to Entity format
   const entities = [
     ...(Array.isArray(aiEntities.persons) ? aiEntities.persons.map(person => ([

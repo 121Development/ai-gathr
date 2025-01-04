@@ -52,7 +52,7 @@ async function aiNerCheck(text: string): Promise<NERResult> {
 
     Text to analyze: "${text}"
   `;
-
+  console.log("Using prompt: " + prompt);
   try {
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
