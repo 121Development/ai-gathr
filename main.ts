@@ -1,6 +1,8 @@
 import { parse } from "https://deno.land/std/flags/mod.ts";
 import { aiNerCheck, type NERResult } from "./nerCheck.ts";
 
+console.log("Welcome to Gathr");
+
 interface Entity {
   text: string;
   type: string;
