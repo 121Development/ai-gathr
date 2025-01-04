@@ -28,7 +28,7 @@ async function aiNerCheck(text: string): Promise<NERResult> {
 
   const prompt = `
     Analyze the following text and extract named entities into these categories:
-    names (for proper nouns), people (for roles/titles/positions), companies, locations, dates, and times.
+    names (for proper nouns), people (for roles/titles/positions), companies, locations, dateTime.
     
     For dates and times, convert to ISO 8601 combined date-time format (YYYY-MM-DD'T'HH:mm:ss).
     For relative dates/times like "tomorrow" or "in an hour", calculate the specific date-time based on current time.
