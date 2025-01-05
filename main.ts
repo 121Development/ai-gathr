@@ -44,9 +44,25 @@ interface KeywordAnalysis {
 }
 
 export async function conductor(input: SourceInput): Promise<void> {
-    let IO = new InformationObject();
+    let IO: InformationObject = {
+        source: {
+            originSource: "",
+            serviceType: "",
+            serviceDetails: ""
+        },
+        lifeCategory: "",
+        typeCategory: "",
+        content: "",
+        keyword: null,
+        hasKeyword: false,
+        hasEntities: false,
+        entities: [],
+        dueDates: [],
+        startDate: null,
+        endDate: null
+    };
     IO = await processSourceInput(input, IO);
-    const processedKeywords = checkKeywords(informationObject);
+    const processedKeywords = checkKeywords(IO);
 }
 
 function checkKeywords(info: InformationObject): InformationObject {
