@@ -53,8 +53,8 @@ export async function conductor(input: SourceInput): Promise<void> {
         lifeCategory: "",
         typeCategory: "",
         content: "",
-        keyword: null,
-        hasKeyword: false,
+        keywords: [],
+        hasKeywords: false,
         hasEntities: false,
         entities: [],
         dueDates: [],
@@ -67,13 +67,13 @@ export async function conductor(input: SourceInput): Promise<void> {
 
 function checkKeywords(info: InformationObject): InformationObject {
     const words = info.content.toLowerCase().trim().split(/\s+/);
-    const firstWord = words[0];
+    const keywords = words.filter(word => word.length > 2); // Filter out short words
     
     return {
         ...info,
-        keyword: firstWord,
-        hasKeyword: true,
-        lifeCategory: firstWord // Using first word as category as per original logic
+        keywords: keywords,
+        hasKeywords: keywords.length > 0,
+        lifeCategory: keywords[0] || "" // Using first keyword as category if available
     };
 }
 
