@@ -77,6 +77,22 @@ export async function processSourceInput(input: SourceInput | ProcessedInput): P
     };
 }
 
+export interface SourceInput {
+    originSource: string;
+    serviceType: string;
+    serviceDetails: string;
+    content: string;
+}
+
+export async function conductor(input: SourceInput): Promise<ProcessedInput> {
+    // Validate required fields
+    if (!input.originSource || !input.serviceType || !input.serviceDetails || !input.content) {
+        throw new Error("Missing required fields in source input");
+    }
+    
+    return await processSourceInput(input);
+}
+
 export async function processInput(input: string | ProcessedInput): Promise<ProcessedInput> {
     // If input is already ProcessedInput, extract content
     const str = typeof input === 'string' ? input : input.content;
