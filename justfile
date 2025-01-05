@@ -92,3 +92,19 @@ compare6:
 # Compare entities
 compare7:
     curl -X POST -H "Content-Type: application/json" -d '{"text":"I need to see both Smith and Emily Brown next time Im in town"}' http://localhost:3000/compare    
+
+# Source route examples with curl POST requests
+source1:
+    curl -X POST -H "Content-Type: application/json" -d '{"originSource":"personal","serviceType":"notes","serviceDetails":"shopping-list","content":"Buy bananas, milk, bread and some toothpaste"}' http://localhost:3000/source | jq
+
+source2:
+    curl -X POST -H "Content-Type: application/json" -d '{"originSource":"work","serviceType":"email","serviceDetails":"professor@stanford.edu","content":"Remind Professor Smith to review the Stanford research paper next Tuesday at 09:00"}' http://localhost:3000/source | jq
+
+source3:
+    curl -X POST -H "Content-Type: application/json" -d '{"originSource":"personal","serviceType":"todo","serviceDetails":"wishlist","content":"buy a car, a house and a dog"}' http://localhost:3000/source | jq
+
+# Run all source examples sequentially
+run-sources:
+    @just source1
+    @just source2
+    @just source3
