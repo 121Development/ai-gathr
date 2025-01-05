@@ -4,13 +4,13 @@ default:
 
 # Run examples with curl POST requests
 example1:
-    curl -X POST -H "Content-Type: application/json" -d '{"originSource":"personal","serviceType":"web","serviceDetails":"www.gathr.ai","content":"Buy bananas, milk, bread and some toothpaste"}' http://localhost:3000/process | jq
+    curl -X POST -H "Content-Type: application/json" -d '{"originSource":"personal","serviceType":"web","serviceDetails":"www.gathr.ai","content":"Buy bananas, milk, bread and some toothpaste"}' http://localhost:3000/source | jq
 
 example2:
-    curl -X POST -H "Content-Type: application/json" -d '{"originSource":"personal","serviceType":"web","serviceDetails":"www.gathr.ai","content":"Remind Professor Smith to review the Stanford research paper next Tuesday at 09:00"}' http://localhost:3000/process | jq
+    curl -X POST -H "Content-Type: application/json" -d '{"originSource":"personal","serviceType":"web","serviceDetails":"www.gathr.ai","content":"Remind Professor Smith to review the Stanford research paper next Tuesday at 09:00"}' http://localhost:3000/source | jq
 
 example3:
-    curl -X POST -H "Content-Type: application/json" -d '{"originSource":"personal","serviceType":"web","serviceDetails":"www.gathr.ai","content":"buy a car, a house and a dog"}' http://localhost:3000/process | jq
+    curl -X POST -H "Content-Type: application/json" -d '{"originSource":"personal","serviceType":"web","serviceDetails":"www.gathr.ai","content":"buy a car, a house and a dog"}' http://localhost:3000/source | jq
 
 # Run all examples sequentially (requires server to be running)
 run-examples:
