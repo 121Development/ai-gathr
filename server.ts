@@ -1,6 +1,6 @@
 import { Application, Router } from "https://deno.land/x/oak@v12.6.1/mod.ts";
 import { load } from "https://deno.land/std/dotenv/mod.ts";
-import { processSourceInput, type InformationObject } from "./main.ts";
+import { conductor, type InformationObject } from "./main.ts";
 import { insertDocument, calculateSimilarity } from "./database.ts";
 
 const app = new Application();
@@ -18,8 +18,8 @@ router.post("/source", async (ctx) => {
       return;
     }
 
-    const result = await processSourceInput(value);
-    ctx.response.body = result;
+    await conductor(value);
+    ctx.response.body = { status: "success" };
   } catch (error) {
     console.error("Error processing source request:", error);
     ctx.response.status = 500;
