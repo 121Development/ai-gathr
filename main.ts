@@ -52,8 +52,13 @@ function checkKeywords(str: string): KeywordAnalysis {
     };
 }
 
-export async function processSourceInput(input: SourceInput): Promise<ProcessedInput> {
-    // Validate required fields
+export async function processSourceInput(input: SourceInput | ProcessedInput): Promise<ProcessedInput> {
+    // If input is already ProcessedInput, just return it
+    if ('hasKeyword' in input) {
+        return input as ProcessedInput;
+    }
+
+    // Validate required fields for SourceInput
     if (!input.originSource || !input.serviceType || !input.serviceDetails || !input.content) {
         throw new Error("Missing required fields in source input");
     }
@@ -72,7 +77,10 @@ export async function processSourceInput(input: SourceInput): Promise<ProcessedI
     };
 }
 
-export async function processInput(str: string): Promise<ProcessedInput> {
+export async function processInput(input: string | ProcessedInput): Promise<ProcessedInput> {
+    // If input is already ProcessedInput, extract content
+    const str = typeof input === 'string' ? input : input.content;
+    
     const analysis = checkKeywords(str);
     const words = str.trim().toLowerCase().split(/\s+/);
     const firstWord = words[0];
