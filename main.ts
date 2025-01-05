@@ -24,9 +24,9 @@ interface ProcessedInput {
     hasKeyword: boolean;
     hasEntities: boolean;
     entities: Entity[];
-    dueDates: string[];
-    startDate: string | null;
-    endDate: string | null;
+    dueDates: Date[];
+    startDate: Date | null;
+    endDate: Date | null;
 }
 
 interface KeywordAnalysis {
@@ -76,7 +76,7 @@ export async function processInput(str: string): Promise<ProcessedInput> {
     const taskKeywords = ["task", "todo", "do", "reminder", "meeting"];
     const isDueDateTask = taskKeywords.includes(firstWord);
     const dueDates = isDueDateTask && aiEntities.dateTime && aiEntities.dateTime.length > 0 
-        ? aiEntities.dateTime
+        ? aiEntities.dateTime.map(dateStr => new Date(dateStr))
         : [];
 
     return {
