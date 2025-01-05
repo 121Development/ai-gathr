@@ -31,6 +31,13 @@ interface ProcessedInput {
     endDate: Date | null;
 }
 
+interface SourceInput {
+    originSource: string;
+    serviceType: string;
+    serviceDetails: string;
+    content: string;
+}
+
 interface KeywordAnalysis {
     category: string;
     keywords: string[];
@@ -42,6 +49,26 @@ function checkKeywords(str: string): KeywordAnalysis {
     return {
         category: firstWord,
         keywords: [firstWord],
+    };
+}
+
+export async function processSourceInput(input: SourceInput): Promise<ProcessedInput> {
+    // Validate required fields
+    if (!input.originSource || !input.serviceType || !input.serviceDetails || !input.content) {
+        throw new Error("Missing required fields in source input");
+    }
+
+    // Process the content using existing function
+    const processed = await processInput(input.content);
+
+    // Override the source information with provided values
+    return {
+        ...processed,
+        source: {
+            originSource: input.originSource,
+            serviceType: input.serviceType,
+            serviceDetails: input.serviceDetails
+        }
     };
 }
 
