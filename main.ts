@@ -45,6 +45,7 @@ interface KeywordAnalysis {
 
 export async function conductor(input: SourceInput): Promise<void> {
     const processedSourceInput = await processSourceInput(input);
+    const processedKeywords = checkKeywords(processedSourceInput.content);
     await processSourceInput(input);
 }
 
