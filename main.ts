@@ -3,9 +3,9 @@ import { exists } from "https://deno.land/std/fs/mod.ts";
 import { scrapeUrl } from "./scrapeUrl.ts";
 
 interface Source {
-    personal: string;
-    work: string;
-    service: string;
+    originSource: string;
+    serviceType: string;
+    detailsSource: string;
 }
 
 interface Entity {
@@ -76,9 +76,9 @@ export async function processInput(str: string): Promise<ProcessedInput> {
 
     return {
         source: {
-            personal: "",
-            work: "user-input",
-            service: ""
+            originSource: "",
+            serviceType: "",
+            detailsSource: "user-input"
         },
         category: analysis.category || "unknown",
         content: str.trim(),
