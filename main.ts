@@ -67,18 +67,15 @@ export async function processSourceInput(input: SourceInput, infoObj: Informatio
         throw new Error("Missing required fields in source input");
     }
 
-    // Process the content using existing function
-    const processed = await processInput(input.content);
-
-    // Override the source information with provided values
-    return {
-        ...processed,
-        source: {
-            originSource: input.originSource,
-            serviceType: input.serviceType,
-            serviceDetails: input.serviceDetails
-        }
+    // Update the InformationObject with input values
+    infoObj.source = {
+        originSource: input.originSource,
+        serviceType: input.serviceType,
+        serviceDetails: input.serviceDetails
     };
+    infoObj.content = input.content;
+
+    return infoObj;
 }
 
 
