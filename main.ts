@@ -44,20 +44,8 @@ interface KeywordAnalysis {
 }
 
 export async function conductor(input: SourceInput): Promise<void> {
-    const processedSourceInput = await processSourceInput(input);
-    const informationObject: InformationObject = {
-        source: processedSourceInput.source,
-        lifeCategory: processedSourceInput.lifeCategory,
-        typeCategory: processedSourceInput.typeCategory,
-        content: processedSourceInput.content,
-        keyword: null,
-        hasKeyword: false,
-        hasEntities: processedSourceInput.hasEntities,
-        entities: processedSourceInput.entities,
-        dueDates: processedSourceInput.dueDates,
-        startDate: processedSourceInput.startDate,
-        endDate: processedSourceInput.endDate
-    };
+    let IO = new InformationObject();
+    IO = await processSourceInput(input, IO);
     const processedKeywords = checkKeywords(informationObject);
 }
 
@@ -73,12 +61,7 @@ function checkKeywords(info: InformationObject): InformationObject {
     };
 }
 
-export async function processSourceInput(input: SourceInput | InformationObject): Promise<InformationObject> {
-    // If input is already InformationObject, just return it
-    if ('hasKeyword' in input) {
-        return input as InformationObject;
-    }
-
+export async function processSourceInput(input: SourceInput, infoObj: InformationObject): Promise<InformationObject> {
     // Validate required fields for SourceInput
     if (!input.originSource || !input.serviceType || !input.serviceDetails || !input.content) {
         throw new Error("Missing required fields in source input");
