@@ -17,7 +17,7 @@ interface Entity {
 }
 // lifeCategory is either personal, work or other (school, hobby etc) same as originSource
 // typeCategory is the type of task (meeting, reminder, task, etc)
-interface ProcessedInput {
+interface InformationObject {
     source: Source;
     lifeCategory: string;
     typeCategory: string;
@@ -58,10 +58,10 @@ function checkKeywords(str: string): KeywordAnalysis {
     };
 }
 
-export async function processSourceInput(input: SourceInput | ProcessedInput): Promise<ProcessedInput> {
-    // If input is already ProcessedInput, just return it
+export async function processSourceInput(input: SourceInput | InformationObject): Promise<InformationObject> {
+    // If input is already InformationObject, just return it
     if ('hasKeyword' in input) {
-        return input as ProcessedInput;
+        return input as InformationObject;
     }
 
     // Validate required fields for SourceInput
@@ -84,8 +84,8 @@ export async function processSourceInput(input: SourceInput | ProcessedInput): P
 }
 
 
-export async function processInput(input: string | ProcessedInput): Promise<ProcessedInput> {
-    // If input is already ProcessedInput, extract content
+export async function processInput(input: string | InformationObject): Promise<InformationObject> {
+    // If input is already InformationObject, extract content
     const str = typeof input === 'string' ? input : input.content;
     
     const analysis = checkKeywords(str);
@@ -142,7 +142,7 @@ export async function processInput(input: string | ProcessedInput): Promise<Proc
     };
 }
 
-async function appendToDatabase(task: ProcessedInput): Promise<void> {
+async function appendToDatabase(task: InformationObject): Promise<void> {
     const dbPath = "./json_db.json";
     
     // Create database file if it doesn't exist
