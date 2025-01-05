@@ -1,10 +1,31 @@
 import { Application, Router } from "https://deno.land/x/oak@v12.6.1/mod.ts";
 import { load } from "https://deno.land/std/dotenv/mod.ts";
-import { processInput } from "./main.ts";
+import { processInput, processSourceInput } from "./main.ts";
 import { insertDocument, calculateSimilarity } from "./database.ts";
 
 const app = new Application();
 const router = new Router();
+
+router.post("/source", async (ctx) => {
+  try {
+    const body = ctx.request.body();
+    const value = await body.value;
+    
+    // Validate required fields
+    if (!value.originSource || !value.serviceType || !value.serviceDetails || !value.content) {
+      ctx.response.status = 400;
+      ctx.response.body = { error: "Missing required fields in source input" };
+      return;
+    }
+
+    const result = await processSourceInput(value);
+    ctx.response.body = result;
+  } catch (error) {
+    console.error("Error processing source request:", error);
+    ctx.response.status = 500;
+    ctx.response.body = { error: "Internal server error" };
+  }
+});
 
 router.post("/process", async (ctx) => {
   try {
