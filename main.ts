@@ -2,8 +2,10 @@ import { aiNERCheck, type NERResult } from "./nerCheck.ts";
 import { exists } from "https://deno.land/std/fs/mod.ts";
 import { scrapeUrl } from "./scrapeUrl.ts";
 
+// OriginaSource can be either personal, work or other (school, hobby etc)
+// serviceType can be either email, slack, whatsapp, sms, etc
 interface Source {
-    originSource: string;
+    originSource: string; 
     serviceType: string;
     detailsSource: string;
 }
