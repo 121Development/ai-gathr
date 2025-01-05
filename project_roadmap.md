@@ -85,3 +85,15 @@ https://cybernetist.com/2024/01/07/fun-with-embeddings/
 https://supabase.com/blog/openai-embeddings-postgres-vector
 https://github.com/openai/openai-cookbook/blob/main/examples/Semantic_text_search_using_embeddings.ipynb
 
+# Database
+https://supabase.com/dashboard/new/oumbsihhzlkbmkwtuhpl?projectName=121Development%27s%20Project
+Gathr
+Github login
+
+# Webscrape
+https://www.firecrawl.dev 
+    --github login
+
+## webscrape backups
+https://github.com/browser-use/browser-use
+https://app.zenrows.com/plans
