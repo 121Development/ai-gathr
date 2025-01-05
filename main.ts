@@ -43,13 +43,8 @@ interface KeywordAnalysis {
     keywords: string[];
 }
 
-export async function conductor(input: SourceInput): Promise<ProcessedInput> {
-    // Validate required fields
-    if (!input.originSource || !input.serviceType || !input.serviceDetails || !input.content) {
-        throw new Error("Missing required fields in source input");
-    }
-    
-    return await processSourceInput(input);
+export async function conductor(input: SourceInput): Promise<void> {
+    await processSourceInput(input);
 }
 
 function checkKeywords(str: string): KeywordAnalysis {
