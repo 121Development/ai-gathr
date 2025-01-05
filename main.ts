@@ -15,7 +15,8 @@ interface Entity {
     text: string;
     type: string;
 }
-
+// lifeCategory is either personal, work or other (school, hobby etc) same as originSource
+// typeCategory is the type of task (meeting, reminder, task, etc)
 interface ProcessedInput {
     source: Source;
     lifeCategory: string;
