@@ -18,7 +18,8 @@ interface Entity {
 
 interface ProcessedInput {
     source: Source;
-    category: string;
+    lifeCategory: string;
+    typeCategory: string;
     content: string;
     keyword: string | null;
     hasKeyword: boolean;
@@ -85,7 +86,8 @@ export async function processInput(str: string): Promise<ProcessedInput> {
             serviceType: "",
             serviceDetails: "user-input"
         },
-        category: analysis.category || "unknown",
+        lifeCategory: analysis.category || "unknown",
+        typeCategory: "unknown",
         content: str.trim(),
         keyword: analysis.keywords.length > 0 ? firstWord : null,
         hasKeyword: analysis.keywords.length > 0,
