@@ -95,53 +95,6 @@ export async function processSourceInput(input: SourceInput, infoObj: Informatio
 }
 
 
-export async function processInput(input: string | InformationObject): Promise<InformationObject> {
-    // If input is already InformationObject, extract content
-    const str = typeof input === 'string' ? input : input.content;
-    
-    const analysis = checkKeywords(str);
-    const words = str.trim().toLowerCase().split(/\s+/);
-    const firstWord = words[0];
-
-    let result: InformationObject = {
-        source: {
-            originSource: "",
-            serviceType: "",
-            serviceDetails: "user-input"
-        },
-        lifeCategory: analysis.category || "unknown",
-        typeCategory: "unknown",
-        content: str.trim(),
-        keyword: analysis.keywords.length > 0 ? firstWord : null,
-        hasKeyword: analysis.keywords.length > 0,
-        hasEntities: false,
-        entities: [],
-        dueDates: [],
-        startDate: null,
-        endDate: null
-    };
-
-    // Process NER and update the InformationObject
-    result = await aiNERCheck(result);
-
-    return {
-        source: {
-            originSource: "",
-            serviceType: "",
-            serviceDetails: "user-input"
-        },
-        lifeCategory: analysis.category || "unknown",
-        typeCategory: "unknown",
-        content: str.trim(),
-        keyword: analysis.keywords.length > 0 ? firstWord : null,
-        hasKeyword: analysis.keywords.length > 0,
-        hasEntities: aiEntities.containsNER,
-        entities,
-        dueDates,
-        startDate: null,
-        endDate: null
-    };
-}
 
 async function appendToDatabase(task: InformationObject): Promise<void> {
     const dbPath = "./json_db.json";
