@@ -72,7 +72,6 @@ function checkKeywords(info: InformationObject): InformationObject {
     return {
         ...info,
         keywords: keywords,
-        hasKeywords: keywords.length > 0,
         lifeCategory: keywords[0] || "" // Using first keyword as category if available
     };
 }
