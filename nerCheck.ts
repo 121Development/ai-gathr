@@ -9,7 +9,7 @@ interface Person {
 interface NERResult {
   persons: Person[];
   locations: string[];
-  dateTime: string[]; // ISO 8601 format: YYYY-MM-DD'T'HH:mm:ss
+  dateTime: Date[]; // ISO 8601 format converted to Date objects
   containsNER: boolean;
 }
 
@@ -87,7 +87,7 @@ async function aiNERCheck(text: string): Promise<NERResult> {
     return {
       persons: nerResult.persons || [],
       locations: nerResult.locations || [],
-      dateTime: nerResult.dateTime || [],
+      dateTime: (nerResult.dateTime || []).map(dateStr => new Date(dateStr)),
       containsNER: Boolean(
         (nerResult.persons && nerResult.persons.length > 0) ||
         (nerResult.locations && nerResult.locations.length > 0) ||
