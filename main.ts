@@ -25,6 +25,8 @@ interface ProcessedInput {
     hasEntities: boolean;
     entities: Entity[];
     dueDates: string[];
+    startDate: string | null;
+    endDate: string | null;
 }
 
 interface KeywordAnalysis {
@@ -90,6 +92,8 @@ export async function processInput(str: string): Promise<ProcessedInput> {
         hasEntities: aiEntities.containsNER,
         entities,
         dueDates,
+        startDate: null,
+        endDate: null
     };
 }
 
