@@ -45,16 +45,31 @@ interface KeywordAnalysis {
 
 export async function conductor(input: SourceInput): Promise<void> {
     const processedSourceInput = await processSourceInput(input);
-    const processedKeywords = checkKeywords(processedSourceInput.content);
-    await processSourceInput(input);
+    const informationObject: InformationObject = {
+        source: processedSourceInput.source,
+        lifeCategory: processedSourceInput.lifeCategory,
+        typeCategory: processedSourceInput.typeCategory,
+        content: processedSourceInput.content,
+        keyword: null,
+        hasKeyword: false,
+        hasEntities: processedSourceInput.hasEntities,
+        entities: processedSourceInput.entities,
+        dueDates: processedSourceInput.dueDates,
+        startDate: processedSourceInput.startDate,
+        endDate: processedSourceInput.endDate
+    };
+    const processedKeywords = checkKeywords(informationObject);
 }
 
-function checkKeywords(str: string): KeywordAnalysis {
-    const words = str.toLowerCase().trim().split(/\s+/);
+function checkKeywords(info: InformationObject): InformationObject {
+    const words = info.content.toLowerCase().trim().split(/\s+/);
     const firstWord = words[0];
+    
     return {
-        category: firstWord,
-        keywords: [firstWord],
+        ...info,
+        keyword: firstWord,
+        hasKeyword: true,
+        lifeCategory: firstWord // Using first word as category as per original logic
     };
 }
 
