@@ -21,8 +21,9 @@ interface OpenAIResponse {
   }[];
 }
 
-async function aiNERCheck(text: string): Promise<NERResult> {
+async function aiNERCheck(info: InformationObject): Promise<InformationObject> {
   console.log("starting NER check");
+  const text = info.content;
   // Load environment variables
   const env = await load();
   const OPENAI_API_KEY = env["OPENAI_API_KEY"];
@@ -84,16 +85,43 @@ async function aiNERCheck(text: string): Promise<NERResult> {
     // Parse the JSON response
     const nerResult: NERResult = JSON.parse(content);
     
-    return {
-      persons: nerResult.persons || [],
-      locations: nerResult.locations || [],
-      dateTime: (nerResult.dateTime || []).map(dateStr => new Date(dateStr)),
-      containsNER: Boolean(
-        (nerResult.persons && nerResult.persons.length > 0) ||
-        (nerResult.locations && nerResult.locations.length > 0) ||
-        (nerResult.dateTime && nerResult.dateTime.length > 0)
-      )
-    };
+    // Update the InformationObject with NER results
+    info.entities = [
+      ...(nerResult.persons || []).map(person => [
+        { text: person.name, type: "PERSON_NAME" },
+        { text: person.role, type: "PERSON_ROLE" },
+        { text: person.company, type: "ORGANIZATION" }
+      ]).flat(),
+      ...(nerResult.locations || []).map(location => ({
+        text: location,
+        type: "LOCATION"
+      })),
+      ...(nerResult.dateTime || []).map(dt => ({
+        text: dt,
+        type: "DATETIME"
+      }))
+    ];
+
+    info.hasEntities = Boolean(
+      (nerResult.persons && nerResult.persons.length > 0) ||
+      (nerResult.locations && nerResult.locations.length > 0) ||
+      (nerResult.dateTime && nerResult.dateTime.length > 0)
+    );
+
+    // Update dates if present
+    if (nerResult.dateTime && nerResult.dateTime.length > 0) {
+      info.dueDates = nerResult.dateTime.map(dateStr => new Date(dateStr));
+      // Set start date to first date found if not already set
+      if (!info.startDate && info.dueDates.length > 0) {
+        info.startDate = info.dueDates[0];
+      }
+      // Set end date to last date found if not already set
+      if (!info.endDate && info.dueDates.length > 0) {
+        info.endDate = info.dueDates[info.dueDates.length - 1];
+      }
+    }
+
+    return info;
   } catch (error) {
     console.error("Error performing AI NER:", error);
     return {
@@ -105,4 +133,5 @@ async function aiNERCheck(text: string): Promise<NERResult> {
   }
 }
 
-export { aiNERCheck, type NERResult };
+import { type InformationObject } from "./main.ts";
+export { aiNERCheck };

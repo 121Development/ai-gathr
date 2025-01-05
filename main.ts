@@ -103,36 +103,26 @@ export async function processInput(input: string | InformationObject): Promise<I
     const words = str.trim().toLowerCase().split(/\s+/);
     const firstWord = words[0];
 
-    const aiEntities = await aiNERCheck(str);
-    //console.log(aiEntities);
-    // Convert AI entities to Entity format
-    const entities = [
-        ...(Array.isArray(aiEntities.persons)
-            ? aiEntities.persons
-                  .map((person) => [
-                      { text: person.name, type: "PERSON_NAME" },
-                      { text: person.role, type: "PERSON_ROLE" },
-                      { text: person.company, type: "ORGANIZATION" },
-                  ])
-                  .flat()
-            : []),
-        ...(Array.isArray(aiEntities.locations)
-            ? aiEntities.locations.map((location) => ({
-                  text: location,
-                  type: "LOCATION",
-              }))
-            : []),
-        ...(Array.isArray(aiEntities.dateTime)
-            ? aiEntities.dateTime.map((dt) => ({ text: dt, type: "DATETIME" }))
-            : []),
-    ];
+    let result: InformationObject = {
+        source: {
+            originSource: "",
+            serviceType: "",
+            serviceDetails: "user-input"
+        },
+        lifeCategory: analysis.category || "unknown",
+        typeCategory: "unknown",
+        content: str.trim(),
+        keyword: analysis.keywords.length > 0 ? firstWord : null,
+        hasKeyword: analysis.keywords.length > 0,
+        hasEntities: false,
+        entities: [],
+        dueDates: [],
+        startDate: null,
+        endDate: null
+    };
 
-    // Check if task has a due date
-    const taskKeywords = ["task", "todo", "do", "reminder", "meeting"];
-    const isDueDateTask = taskKeywords.includes(firstWord);
-    const dueDates = isDueDateTask && aiEntities.dateTime && aiEntities.dateTime.length > 0 
-        ? aiEntities.dateTime.map(dateStr => new Date(dateStr))
-        : [];
+    // Process NER and update the InformationObject
+    result = await aiNERCheck(result);
 
     return {
         source: {
