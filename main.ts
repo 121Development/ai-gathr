@@ -7,7 +7,7 @@ import { scrapeUrl } from "./scrapeUrl.ts";
 interface Source {
     originSource: string; 
     serviceType: string;
-    detailsSource: string;
+    serviceDetails: string;
 }
 
 interface Entity {
@@ -80,7 +80,7 @@ export async function processInput(str: string): Promise<ProcessedInput> {
         source: {
             originSource: "",
             serviceType: "",
-            detailsSource: "user-input"
+            serviceDetails: "user-input"
         },
         category: analysis.category || "unknown",
         content: str.trim(),
