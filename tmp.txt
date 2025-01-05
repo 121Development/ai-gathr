@@ -1,0 +1,2 @@
+    uv run -m src.spec_based_ai_coding.main analyze-transcript ./transcript.txt --min-count-threshold 10 --chart bar --output-file analysis.md
+
