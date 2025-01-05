@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ProcessedInput",
+  "description": "Schema for processed input data structure",
+  "type": "object",
+  "properties": {
+    "source": {
+      "type": "object",
+      "description": "Source information for the input",
+      "properties": {
+        "originSource": {
+          "type": "string",
+          "description": "Origin of the input (personal, work, or other)",
+          "enum": ["personal", "work", "other"]
+        },
+        "serviceType": {
+          "type": "string",
+          "description": "Type of service (email, slack, whatsapp, sms, etc)"
+        },
+        "serviceDetails": {
+          "type": "string",
+          "description": "Details like number, email or username of sender"
+        }
+      },
+      "required": ["originSource", "serviceType", "serviceDetails"]
+    },
+    "lifeCategory": {
+      "type": "string",
+      "description": "Category of life area (personal, work, or other)"
+    },
+    "typeCategory": {
+      "type": "string",
+      "description": "Type of task (meeting, reminder, task, etc)"
+    },
+    "content": {
+      "type": "string",
+      "description": "Main content of the input"
+    },
+    "keyword": {
+      "type": ["string", "null"],
+      "description": "Primary keyword extracted from content"
+    },
+    "hasKeyword": {
+      "type": "boolean",
+      "description": "Indicates if a keyword was found"
+    },
+    "hasEntities": {
+      "type": "boolean",
+      "description": "Indicates if named entities were found"
+    },
+    "entities": {
+      "type": "array",
+      "description": "List of named entities found in content",
+      "items": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "The extracted entity text"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of entity (PERSON_NAME, PERSON_ROLE, ORGANIZATION, LOCATION, DATETIME)"
+          }
+        },
+        "required": ["text", "type"]
+      }
+    },
+    "dueDates": {
+      "type": "array",
+      "description": "List of due dates",
+      "items": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "startDate": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "Start date of the task/event"
+    },
+    "endDate": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "End date of the task/event"
+    }
+  },
+  "required": [
+    "source",
+    "lifeCategory",
+    "typeCategory",
+    "content",
+    "keyword",
+    "hasKeyword",
+    "hasEntities",
+    "entities",
+    "dueDates",
+    "startDate",
+    "endDate"
+  ]
+}
