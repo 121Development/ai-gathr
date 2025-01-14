@@ -22,6 +22,22 @@ and the into sub categories; todo, toRead, toWatch, forLater,
 # Assumptions in building the app
 - Use AI for most things, it will cost, but rather good AI, than mediocre static code that wont perform. This will be cutting edge.
 
+# 250114
+Consideration: should we just use AI for all categorisation? The embedding models of OpenAI are lacking a bit, 
+the cosine search returns a narrow search. Short texts dont work well etc. 
+
+# 240105
+- Refactor the project for this structure:
+    - CREATE a conductor function that will handle the flow of the project
+        - Make the conductor the entry point for router API requests/posts 
+    - conductor calls processSourceInput (handles input from mock phone, sms, signal etc)
+    - conductor passes it  on to checkKeyword function to check kw in content,  with populated fields
+        - if kw found, then populate category and send to appendToDatabase (shortcutting the AI) 
+        - if source is not found then pass it to AI/NER checker to try to determine category
+    - conductor passes it to NERCHecker (checks for NER in content)
+        - or sends entire object to AI for NER and AI analysis and population of the remaining category fields
+    - conductor passes it to processInput (handles the input and sends it to the appendToDatabase function) 
+        - 
 
 # 250204
 - build a function that takes a string and searches it for keywords. 

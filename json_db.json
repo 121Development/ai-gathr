@@ -1,3 +1,44 @@
 {
-  "tasks": []
+  "tasks": [
+    {
+      "source": {
+        "originSource": "personal",
+        "serviceType": "web",
+        "serviceDetails": "www.gathr.ai"
+      },
+      "lifeCategory": "r",
+      "typeCategory": "",
+      "content": "Remind Professor Smith to review the Stanford research paper next Tuesday at 09:00",
+      "keyword": "remind",
+      "entities": [
+        {
+          "text": "Professor Smith",
+          "type": "PERSON_NAME"
+        },
+        {
+          "text": "Professor",
+          "type": "PERSON_ROLE"
+        },
+        {
+          "text": "Stanford",
+          "type": "ORGANIZATION"
+        },
+        {
+          "text": "Stanford",
+          "type": "LOCATION"
+        },
+        {
+          "text": "2023-12-26T09:00:00",
+          "type": "DATETIME"
+        }
+      ],
+      "dueDates": [
+        "2023-12-26T08:00:00.000Z"
+      ],
+      "startDate": "2023-12-26T08:00:00.000Z",
+      "endDate": "2023-12-26T08:00:00.000Z",
+      "timestamp": "2025-01-05T19:35:41.377Z",
+      "id": "59fabbfd-ea0d-4f67-a947-b43c47965c01"
+    }
+  ]
 }

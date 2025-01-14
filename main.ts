@@ -1,4 +1,4 @@
-import { aiNERCheck, type NERResult } from "./nerCheck.ts";
+import { aiNERCheck } from "./nerCheck.ts";
 import { exists } from "https://deno.land/std/fs/mod.ts";
 // import { scrapeUrl } from "./scrapeUrl.ts";
 
@@ -23,8 +23,6 @@ interface InformationObject {
     typeCategory: string;
     content: string;
     keyword: string | null;
-    hasKeyword: boolean;
-    hasEntities: boolean;
     entities: Entity[];
     dueDates: Date[];
     startDate: Date | null;
@@ -44,6 +42,7 @@ interface KeywordAnalysis {
 }
 
 export async function conductor(input: SourceInput): Promise<void> {
+    console.log("Conductor started");
     let IO: InformationObject = {
         source: {
             originSource: "",
@@ -53,26 +52,30 @@ export async function conductor(input: SourceInput): Promise<void> {
         lifeCategory: "",
         typeCategory: "",
         content: "",
-        keywords: string[],
-        hasKeywords: boolean,
-        hasEntities: false,
+        keyword: null,
         entities: [],
         dueDates: [],
         startDate: null,
         endDate: null
     };
     IO = await processSourceInput(input, IO);
-    const processedKeywords = checkKeywords(IO);
+    console.log("processed source input");
+    IO = checkKeywords(IO);
+    console.log("checked keywords");
+    IO = await aiNERCheck(IO);
+    console.log("checked NER");
+    appendToDatabase(IO);
+    console.log(IO);
 }
 
 function checkKeywords(info: InformationObject): InformationObject {
     const words = info.content.toLowerCase().trim().split(/\s+/);
-    const keywords = words.filter(word => word.length > 2); // Filter out short words
+    const keyword = words[0];
     
     return {
         ...info,
-        keywords: keywords,
-        lifeCategory: keywords[0] || "" // Using first keyword as category if available
+        keyword: keyword,
+        lifeCategory: keyword[0] || "" // Using first keyword as category if available
     };
 }
 

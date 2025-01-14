@@ -86,7 +86,6 @@ async function aiNERCheck(info: InformationObject): Promise<InformationObject> {
     ];
 
     info.entities = entities;
-    info.hasEntities = entities.length > 0;
 
     // Update dates if present
     if (nerResult.dateTime?.length > 0) {
